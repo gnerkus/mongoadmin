@@ -1,0 +1,1 @@
+var mongoAdmin = angular.module('mongoAdmin', []);
