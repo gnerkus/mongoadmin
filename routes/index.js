@@ -1,17 +1,18 @@
-//var ContentHandler = require('./content');
+var ContentHandler = require('./content');
 
-module.exports = exports = function (router, db) {
+module.exports = exports = function (router, db, Db, Server) {
 	"use strict";
 
-	router.get('*', function (req, res) {
-		res.sendfile('./public/index.html');
-	});
+    var contentHandler = new ContentHandler(db, Db, Server);
+    
+    router.route('/')
 
-    router.get('/', function (req, res) {
-    	var adminDb = db.admin();
+        // get all the databases
+        .get(contentHandler.displayMainPage)
 
-    	adminDb.listDatabases(function (err, dbs) {
-    		res.json(dbs.databases);
-    	});
-    });
+        // create a database
+        .post(contentHandler.handleNewDatabase)
+
+        // drop a database
+        .delete(contentHandler.dropDatabase);
 };

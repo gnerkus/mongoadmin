@@ -30,9 +30,9 @@ db.open(function (err, db) {
     }));
 
     app.use(bodyParser.json());
-    app.use('/', router);
+    app.use('/admin', router);
 
-    routes(router, db);
+    routes(router, db, Db, Server);
 
     app.listen(port);
     console.log('Express server listening on port 8082');
