@@ -15,4 +15,15 @@ module.exports = exports = function (router, db, Db, Server) {
 
         // drop a database
         .delete(contentHandler.dropDatabase);
+
+    router.route('/:db_id')
+
+        // get all collections in database with id db_id
+        .get(contentHandler.getCollections)
+
+        // create a collection in database db_id
+        .post(contentHandler.handleNewCollection)
+
+        // drop a collection from database db_id
+        .delete(contentHandler.dropCollection);
 };
