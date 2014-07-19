@@ -26,4 +26,9 @@ module.exports = exports = function (router, db, Db, Server) {
 
         // drop a collection from database db_id
         .delete(contentHandler.dropCollection);
+
+    router.route('/:db_id/:coll_id')
+
+        // get all documents in collection coll_id
+        .get(contentHandler.getAllDocuments)
 };
