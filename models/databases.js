@@ -6,7 +6,7 @@ function DatabaseDAO (db, Db, Server) {
 	 * points to the global object. Log a warning and call it correctly. */
 	if (false === (this instanceof DatabaseDAO)) {
         console.log('Warning: DatabaseDAO constructor called without "new" operator');
-        return new DatabaseDAO(db);
+        return new DatabaseDAO(db, Db, Server);
 	}
 
 	var adminDb = db.admin();

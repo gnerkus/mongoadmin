@@ -6,7 +6,7 @@ function CollectionDAO (db, Db, Server) {
 	 * points to the global object. Log a warning and call it correctly. */
 	if (false === (this instanceof CollectionDAO)) {
         console.log('Warning: CollectionDAO constructor called without "new" operator');
-        return new CollectionDAO(db);
+        return new CollectionDAO(db, Db, Server);
 	}
 
 	this.getCollections = function (dbName, callback) {
