@@ -1,0 +1,79 @@
+<div class="row">
+   	<div class="col-lg-2">
+   		<div class="panel panel-default">
+   			<div class="panel-heading">
+   				Admin
+   			</div>
+   			<div class="panel-body">
+   				
+   			</div>
+   		</div>
+   		<div class="panel panel-default">
+   			<div class="panel-heading">
+   				Databases
+   			</div>
+   			<div class="panel-body">
+   				<div class="list-group">
+   					<a ng-href="/#!/{{ database.name }}" class="list-group-item" ng-repeat="database in databases">{{ database.name }}</a>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="col-lg-10">
+   		<ul class="nav nav-tabs">
+   			<li class="active">
+   				<a href="#first" data-toggle="tab">First</a>
+   			</li>
+   			<li>
+   				<a href="#second" data-toggle="tab">Second</a>
+   			</li>
+   		</ul>
+   		<div class="tab-content container">
+   			<div class="tab-pane active" id="first">
+   			    <div class="row">
+   			    	<div class="col-lg-4">
+   			    		<div class="panel panel-default">
+   			    			<div class="panel-heading">
+   			    				Add Database
+   			    			</div>
+   			    			<div class="panel-body">
+   			    				<form role="form" ng-submit="createDatabase()">
+                            <div class="form-group">
+                               <label for="#newDatabaseName">
+                                  Database Name
+                               </label>
+                               <input id="newDatabaseName" class="form-control" type="text" name="dbName" ng-model="formData.dbName" placeholder="Database name" />
+                            </div>
+                            <div class="form-group">
+                               <button class="btn btn-primary" type="submit">Add</button>
+                            </div>        
+                           </form>
+   			    			</div>
+   			    		</div>
+   			    	</div>
+   			    	<div class="col-lg-4">
+                      <div class="panel panel-default">
+                         <div class="panel-heading">
+                            Delete Database
+                         </div>
+                         <div class="panel-body">
+                            <form role="form" ng-submit="deleteDatabase(formData.dbName)">
+                               <div class="form-group">
+                                  <label for="#databaseName">
+                                     Database Name
+                                  </label>
+                                  <input id="databaseName" class="form-control" type="text" name="dbName" ng-model="formData.dbName" placeholder="Database name" />
+                               </div>
+                               <div class="form-group">
+                                   <button class="btn btn-danger" type="submit">Delete</button>
+                               </div> 
+                            </form>
+                         </div>
+                      </div>
+	    	    	   </div>
+   			    </div>
+   			</div>
+   			<div class="tab-pane" id="second">More stuff.</div>
+   		</div>
+   	</div>
+</div>

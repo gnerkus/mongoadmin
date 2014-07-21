@@ -11,36 +11,41 @@ module.exports = exports = function (router, db, Db, Server) {
         .get(contentHandler.displayMainPage)
 
         // create a database
-        .post(contentHandler.handleNewDatabase)
-
-        // drop a database
-        .delete(contentHandler.dropDatabase);
+        .post(contentHandler.handleNewDatabase);
 
     router.route('/:db_id')
 
-        // get all collections in database with id db_id
+        // get all collections in the db_id database
         .get(contentHandler.getCollections)
 
-        // create a collection in database db_id
+        // create a collection in the db_id database
         .post(contentHandler.handleNewCollection)
 
-        // drop a collection from database db_id
+        // drop the db_id database
+        .delete(contentHandler.dropDatabase);
+
+    router.route('/:db_id/:coll_id')
+
+        // create a new document in the coll_id collection
+        .post(contentHandler.handleNewDocument)
+
+        // drop the coll_id collection
         .delete(contentHandler.dropCollection);
 
     router.route('/:db_id/:coll_id/?')
 
-        // get all documents in collection coll_id
+        // get all the documents in the coll_id collection
         .get(contentHandler.getDocuments)
 
-        // update a document
+        // update documents in the coll_id collection
         .put(contentHandler.updateDocuments)
 
-        // delete a document
+        // delete documents in the coll_id collection
         .delete(contentHandler.deleteDocuments);
 
-    router.route('/:db_id/:coll_id/')
+    router.route('/:db_id/:coll_id/remove?')
 
-        // create a document in collection coll_id
-        .post(contentHandler.handleNewDocument);
+        // delete documents in the coll_id collection
+        .delete(contentHandler.deleteDocuments);
 
 };

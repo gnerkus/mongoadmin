@@ -5,13 +5,46 @@
 		<meta name="description" content="An admin interface for MongoDB" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>MongoAdmin</title>
-		<link rel="stylesheet" href="css/bootstrap.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
-	<body>
-	    <div class="container">
-	    	
+	<body ng-controller="MainController">
+	    <nav class="navbar navbar-inverse navbar-static-top">
+	    	<div class="container-fluid">
+	    		<div class="navbar-header">
+	    		    <a class="navbar-brand" href="#">{{ tagline }}</a>
+	    	    </div>
+
+	    	    <ul class="nav navbar-nav">
+	    		    <li class="active">
+	    			    <a href="/#!/pcat/products">Databases</a>
+	    		    </li>
+	    	    </ul>
+	    	</div>
+	    </nav>
+	    <div class="container-fluid">
+	    	<ol class="breadcrumb">
+	    	    <li>
+	    	    	<a href="#">localhost</a>
+	    	    </li>
+	    	</ol>
+
+	    	<section ng-view>
+	    	    
+	    	</section>
 	    </div>
-		<script src="js/angular.js"></script>
-		<script src="js/core.js"></script>
+	    <script src="js/libs/jquery-1.11.0.min.js"></script>
+	    <script src="js/libs/bootstrap.min.js"></script>
+		<script src="js/libs/angular.min.js"></script>
+		<script src="js/libs/angular-route.min.js"></script>
+		<script src="js/libs/angular-resource.min.js"></script>
+		<script src="js/controllers/MainCtrl.js"></script>
+		<script src="js/controllers/DatabaseCtrl.js"></script>
+		<script src="js/services/DatabaseService.js"></script>
+		<script src="js/controllers/CollectionCtrl.js"></script>
+		<script src="js/services/CollectionService.js"></script>
+		<script src="js/controllers/DocumentCtrl.js"></script>
+		<script src="js/services/DocumentService.js"></script>
+		<script src="js/appRoutes.js"></script>
+		<script src="js/app.js"></script>
 	</body>
 </html>

@@ -38,7 +38,6 @@ function DatabaseDAO (db, Db, Server) {
             	if (err) return callback(err, null);
 
             	console.log("Inserted " + collectionName + " collection into " +dbName);
-                db.close();
 
                 adminDb.listDatabases(function (err, dbs) {
         	        if (err) return callback(err, null);
@@ -46,6 +45,7 @@ function DatabaseDAO (db, Db, Server) {
         	        console.log("Found " + dbs.databases.length + " databases");
 
         	        callback(err, dbs.databases);
+                    db.close();
                 });
             });
         });
@@ -61,14 +61,16 @@ function DatabaseDAO (db, Db, Server) {
 			console.log('Connected to database ' + dbName);
 
 			// Drop the database
-			db.dropDatabase();
+			db.dropDatabase(function (err, result) {
+                adminDb.listDatabases(function (err, dbs) {
+                    if (err) return callback(err, null);
 
-			adminDb.listDatabases(function (err, dbs) {
-        	    if (err) return callback(err, null);
+                    console.log("Found " + dbs.databases.length + " databases");
 
-        	    console.log("Found " + dbs.databases.length + " databases");
+                    callback(err, dbs.databases);
 
-        	    callback(err, dbs.databases);
+                    db.close();
+                });
             });
 		});
 	};

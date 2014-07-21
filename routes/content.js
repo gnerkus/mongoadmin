@@ -20,7 +20,7 @@ function ContentHandler (db, Db, Server) {
 
 	this.handleNewDatabase = function (req, res, next) {
 		var dbName = req.body.dbName;
-        var collectionName = req.body.collectionName;
+        var collectionName = 'test';
 
         databases.createDatabase(dbName, collectionName, function (err, results) {
         	if (err) return next(err);
@@ -30,7 +30,7 @@ function ContentHandler (db, Db, Server) {
 	};
 
 	this.dropDatabase = function (req, res, next) {
-		var dbName = req.body.dbName;
+		var dbName = req.params.db_id;
 
 		databases.dropDatabase(dbName, function (err, results) {
 			if (err) return callback(err, null);
@@ -62,7 +62,7 @@ function ContentHandler (db, Db, Server) {
 
 	this.dropCollection = function (req, res, next) {
 		var dbName = req.params.db_id;
-		var collectionName = req.body.collectionName;
+		var collectionName = req.params.coll_id;
 
 		collections.dropCollection(dbName, collectionName, function (err, results) {
 			if (err) return next(err);

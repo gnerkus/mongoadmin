@@ -18,26 +18,25 @@ function DocumentDAO (db, Db, Server) {
 
             console.log('Connected to database ' + dbName);
 
-            var collection = db.collection(collectionName);
-            
-            if (spec._id) {
-                collection.findOne(spec, function (err, doc) {
-                	if (err) return callback(err, null);
-
-                	callback(err, doc);
-                	db.close();
-                });
-            } else {
-                collection.find(spec, function (err, cursor) {
-                	cursor.toArray(function (err, docs) {
-                		if (err) return callback(err, null);
-
-                		callback(err, docs);
-                		db.close();
-                	});
-                });
-            }
-
+            db.createCollection(collectionName, function (err, collection) {
+                if (spec._id) {
+                    collection.findOne(spec, function (err, doc) {
+                        if (err) return callback(err, null);
+    
+                        callback(err, doc);
+                        db.close();
+                    });
+                } else {
+                    collection.find(spec, function (err, cursor) {
+                        cursor.toArray(function (err, docs) {
+                            if (err) return callback(err, null);
+    
+                            callback(err, docs);
+                            db.close();
+                        });
+                    });
+                }
+            });
 	 	});
 	};
 
@@ -50,21 +49,23 @@ function DocumentDAO (db, Db, Server) {
 
             console.log('Connected to database ' + dbName);
 
-            var collection = db.collection(collectionName);
-            collection.insert(data, {safe:true}, function (err, docs) {
-                if (err) return callback(err, null);
-
-                console.log('Document added as ' + docs[0]._id);
-
-                collection.find({}, function (err, cursor) {
-                    cursor.toArray(function (err, docs) {
-                        if (err) return callback(err, null);
-
-                        callback(err, docs);
-                        db.close();
+            db.createCollection(collectionName, function (err, collection) {
+                collection.insert(data, {safe:true}, function (err, docs) {
+                    if (err) return callback(err, null);
+    
+                    console.log('Document added as ' + docs[0]._id);
+    
+                    collection.find({}, function (err, cursor) {
+                        cursor.toArray(function (err, docs) {
+                            if (err) return callback(err, null);
+    
+                            callback(err, docs);
+                            db.close();
+                        });
                     });
-                });
+                });   
             });
+            
         });
     };
 
@@ -78,38 +79,39 @@ function DocumentDAO (db, Db, Server) {
             console.log('Connected to database ' + dbName);
 
             var collection = db.collection(collectionName);
-
-            if (spec._id) {
-                collection.update(spec, data, {safe:true}, function (err, doc) {
-                    if (err) return callback(err, null);
-
-                    console.log('Document ' + docs[0]._id + ' updated');
-
-                    collection.find({}, function (err, cursor) {
-                        cursor.toArray(function (err, docs) {
-                            if (err) return callback(err, null);
-
-                            callback(err, docs);
-                            db.close();
+            db.createCollection(collectionName, function (err, collection) {
+                if (spec._id) {
+                    collection.update(spec, data, {safe:true}, function (err, doc) {
+                        if (err) return callback(err, null);
+    
+                        console.log('Document ' + docs[0]._id + ' updated');
+    
+                        collection.find({}, function (err, cursor) {
+                            cursor.toArray(function (err, docs) {
+                                if (err) return callback(err, null);
+    
+                                callback(err, docs);
+                                db.close();
+                            });
                         });
                     });
-                });
-            } else {
-                collection.update(spec, data, {safe:true}, function (err, doc) {
-                    if (err) return callback(err, null);
-
-                    console.log('Documents updated');
-
-                    collection.find({}, function (err, cursor) {
-                        cursor.toArray(function (err, docs) {
-                            if (err) return callback(err, null);
-
-                            callback(err, docs);
-                            db.close();
+                } else {
+                    collection.update(spec, data, {safe:true}, function (err, doc) {
+                        if (err) return callback(err, null);
+    
+                        console.log('Documents updated');
+    
+                        collection.find({}, function (err, cursor) {
+                            cursor.toArray(function (err, docs) {
+                                if (err) return callback(err, null);
+    
+                                callback(err, docs);
+                                db.close();
+                            });
                         });
                     });
-                });
-            }
+                }
+            });
         });
     };
 
@@ -122,24 +124,23 @@ function DocumentDAO (db, Db, Server) {
 
             console.log('Connected to database ' + dbName);
 
-            var collection = db.collection(collectionName);
-            
-            collection.remove(spec, function (err, doc) {
-                if (err) return callback(err, null);
-
-                console.log('Documents deleted');
-
-                collection.find({}, function (err, cursor) {
-                    cursor.toArray(function (err, docs) {
-                        if (err) return callback(err, null);
-
-                        callback(err, docs);
-                        db.close();
+            db.collection(collectionName, function (err, collection) {
+                collection.remove(spec, function (err, doc) {
+                    if (err) return callback(err, null);
+    
+                    console.log('Documents deleted');
+    
+                    collection.find({}, function (err, cursor) {
+                        cursor.toArray(function (err, docs) {
+                            if (err) return callback(err, null);
+    
+                            callback(err, docs);
+                            db.close();
+                        });
                     });
+    
                 });
-
             });
-
         });
     };
 

@@ -36,16 +36,17 @@ function CollectionDAO (db, Db, Server) {
 
 			console.log('Connected to database ' + dbName);
 
-			var collection = db.collection(collectionName);
-            collection.insert({'test_obj': 'It works'}, {w: 1}, function (err, result) {
-                console.log('Created collection ' + collectionName);
+            db.createCollection(collectionName, function (err, collection) {
+                collection.insert({'test_obj': 'It works'}, {w: 1}, function (err, result) {
+                    console.log('Created collection ' + collectionName);
 
-                db.collectionNames(function (err, collections) {
-        		    if (err) return callback(err, null);
+                    db.collectionNames(function (err, collections) {
+                        if (err) return callback(err, null);
 
-        		    callback(err, collections);
-        		    db.close();
-        	    });
+                        callback(err, collections);
+                        db.close();
+                    });
+                });
             });
 
 		});
@@ -59,19 +60,18 @@ function CollectionDAO (db, Db, Server) {
 			if (err) return callback(err, null);
 
 			console.log('Connected to database ' + dbName);
+            db.createCollection(collectionName, function (err, collection) {
+                collection.drop(function (err, result) {
+                    console.log('Dropped collection ' + collectionName);
 
-			var collection = db.collection(collectionName);
-            collection.drop(function (err, result) {
-                console.log('Dropped collection ' + collectionName);
+                    db.collectionNames(function (err, collections) {
+                        if (err) return callback(err, null);
 
-                db.collectionNames(function (err, collections) {
-        		    if (err) return callback(err, null);
-
-        		    callback(err, collections);
-        		    db.close();
-        	    });
+                        callback(err, collections);
+                        db.close();
+                    });
+                });
             });
-
 		});
 	};
 }

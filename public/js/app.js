@@ -1,1 +1,11 @@
-var mongoAdmin = angular.module('mongoAdmin', []);
+var mongoAdmin = angular.module('mongoAdmin', [
+	'ngRoute', 
+	'appRoutes', 
+	'MainCtrl', 
+	'DatabaseCtrl', 
+	'CollectionCtrl', 
+	'DocumentCtrl', 
+	'DatabaseService', 
+	'CollectionService', 
+	'DocumentService'
+	]);

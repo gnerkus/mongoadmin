@@ -1,0 +1,79 @@
+<div class="row">
+   	<div class="col-lg-2">
+   		<div class="panel panel-default">
+   			<div class="panel-heading">
+   				Database
+   			</div>
+   			<div class="panel-body">
+   				{{ databaseName }}
+   			</div>
+   		</div>
+   		<div class="panel panel-default">
+   			<div class="panel-heading">
+   				Collection
+   			</div>
+   			<div class="panel-body">
+   				<div class="list-group">
+   					<a ng-href="/#!/{{ databaseName }}/{{ collection.name }}" class="list-group-item" ng-repeat="collection in collections">{{ collection.name }}</a>
+   				</div>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="col-lg-10">
+   		<ul class="nav nav-tabs">
+   			<li class="active">
+   				<a href="#first" data-toggle="tab">First</a>
+   			</li>
+   			<li>
+   				<a href="#second" data-toggle="tab">Second</a>
+   			</li>
+   		</ul>
+   		<div class="tab-content container">
+   			<div class="tab-pane active" id="first">
+   			    <div class="row">
+   			    	<div class="col-lg-4">
+   			    		<div class="panel panel-default">
+   			    			<div class="panel-heading">
+   			    				Add Collection
+   			    			</div>
+   			    			<div class="panel-body">
+   			    				<form role="form" ng-submit="createCollection()">
+                            <div class="form-group">
+                               <label for="#newCollectionName">
+                                  Collection Name
+                               </label>
+                               <input id="newCollectionName" class="form-control" type="text" name="collectionName" ng-model="formData.collectionName" placeholder="Collection name" />
+                            </div>
+                            <div class="form-group">
+                               <button class="btn btn-primary" type="submit">Add Collection</button>
+                            </div>        
+                           </form>
+   			    			</div>
+   			    		</div>
+   			    	</div>
+   			    	<div class="col-lg-4">
+                      <div class="panel panel-default">
+                         <div class="panel-heading">
+                            Delete Collection
+                         </div>
+                         <div class="panel-body">
+                            <form role="form" ng-submit="deleteCollection()">
+                               <div class="form-group">
+                                  <label for="#collectionName">
+                                     Collection Name
+                                  </label>
+                                  <input id="collectionName" class="form-control" type="text" name="collectionName" ng-model="formData.collectionName" placeholder="Collection name" />
+                               </div>
+                               <div class="form-group">
+                                   <button class="btn btn-danger" type="submit">Delete</button>
+                               </div> 
+                            </form>
+                         </div>
+                      </div>
+	    	    	   </div>
+   			    </div>
+   			</div>
+   			<div class="tab-pane" id="second">More stuff.</div>
+   		</div>
+   	</div>
+</div>
